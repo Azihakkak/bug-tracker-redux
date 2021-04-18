@@ -1,25 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import store from "./store";
+import { bugAdded, bugRemoved, bugResolved } from "./actions";
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const unsubscribe = store.subscribe(() => {
+    console.log("store changed", store.getState());
+  });
+  store.dispatch(bugAdded("Bug1"));
+  store.dispatch(bugResolved(1));
+
+  store.dispatch(bugRemoved(1));
+  return <div className="App">Hello from redux</div>;
 }
 
 export default App;
